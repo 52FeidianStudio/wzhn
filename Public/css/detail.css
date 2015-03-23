@@ -1,0 +1,33 @@
+*{
+	margin:0px;
+	padding:0px;
+}
+
+body{
+    background:#e7e8eb;
+    font:16px/24px "Microsoft Yahei", Tahoma, Helvetica, Arial, Verdana, "\5b8b\4f53", sans-serif;
+}
+
+#article-content{
+	width:700px;
+	height:600px;
+	margin:0 auto;
+	background:#fff;
+}
+
+.center{
+	margin-left:30px;
+	margin-right:30px;
+}
+
+.article-title{
+	text-align:center;
+	padding-top:30px;
+	font-size:24px;
+	margin-bottom:20px;
+	
+}
+.article-detail{
+	text-align:center;
+	margin-top:15px;
+}

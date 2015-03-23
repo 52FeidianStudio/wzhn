@@ -1,0 +1,75 @@
+<include file="Public:header"/>
+  <div id="sidebar">
+     <include file="Public:sidebar"/>
+   </div>
+  
+  <div id="main">
+      <div class="page-title">
+            	添加资讯&nbsp;&nbsp; 
+      </div>
+         
+         <div class="catalog">
+             <a href="">首页</a>&nbsp;>&nbsp;<a href="">添加资讯</a>
+         </div>
+         
+         <div class="parts">
+            <div class="part-desc">
+               <h>板块说明</h>
+               <p1>你可以在本版块编辑并发布新的文章</p1>
+               <p1>添加时，必须指明该文章所属模块</p1>
+            </div>
+         </div>
+    
+         
+         <div class="parts"">
+         <div class="news-add">
+            <h>填写信息</h>
+            <form name="nform"action="__URL__/upload" method="post" onsubmit="return check();">
+			 <script type="text/plain" id="editor" name="content">
+  				</script>
+  				<div class="text-part">
+               <label for="title">*新闻标题</label>
+               <input type="text" name="title" id="title" class="box-control" placeholder="填写文章标题" autocomplete="off"/>
+               <label for="author">*新闻作者/来源</label>
+                    <input type="text" name="author" id="author" class="box-control" placeholder="填写文章作者/来源" autocomplete="off"/>
+               <label for="belong">新闻所属模块</label>
+               <select  class="box-control" name="module">
+                   <option value="0" selected>请选择资讯所属模块</option>
+                   <volist name="result" id="vo">
+                            <option value="{vo['mid']}">{$vo['mname']}</option>
+                   </volist>
+               </select>
+              </br>
+               <input type="submit" id="btn" value="发表"/>
+               </div>
+            </form>
+         </div>
+         
+   </div>
+ </div>
+ </body>
+ </html>
+ <script type="text/javascript">  var _gaq = _gaq || [];  _gaq.push(['_setAccount', 'UA-37564768-1']);  _gaq.push(['_setDomainName', 'keenthemes.com']);  _gaq.push(['_setAllowLinker', true]);  _gaq.push(['_trackPageview']);  (function() {    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);  })();</script>
+<script type="text/javascript">
+
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    UE.getEditor('editor');
+</script>
+<script type="text/javascript">
+function check()
+{
+  if(document.nform.title.value=="")
+  {
+  alert("请填写文章标题!");
+  document.nform.title.focus();
+  return false;
+  }
+  if(document.nform.author.value=="")
+  {
+  alert("请填写文章作者/来源!");
+  document.nform.author.focus();
+  return false;
+  }
+}
+</script>

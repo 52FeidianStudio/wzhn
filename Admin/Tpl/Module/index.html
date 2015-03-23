@@ -1,0 +1,74 @@
+<include file="Public:header"/>
+  <div id="sidebar">
+     <include file="Public:sidebar"/>
+   </div>
+  
+  <div id="main">
+      <div class="page-title">
+            	添加资讯&nbsp;&nbsp; 
+      </div>
+         
+         <div class="catalog">
+             <a href="">首页</a>&nbsp;>&nbsp;<a href="">添加资讯</a>
+         </div>
+         
+         <div class="parts">
+           <div class="part-desc">
+            <h>模块说明</h>
+            <p1>本模块只能由超级管理员才能更改，在该模块中，你可以浏览各个模块，还可以对模块进行添加</p1>
+           </div>
+         </div>
+         
+         <div class="parts" style="width:540px;">
+           <div class="module-list">
+              <h style="width:520px">模块列表</h>
+              <table style="width:540px">
+                 <tr>
+                    <th class="first">编号</th>
+                    <th class="first">模块名</th>
+                    <th class="first">模块创立时间</th>
+                    <th class="first">操作</th>
+                 </tr>
+               <volist name="data" id="vo">
+				<tr>
+					<th>{$vo.mid}</th><th>{$vo.mname}</th><th>{$vo.mtime}</th><th><a href="__APP__/Module/ndelete/id/{$vo.mid}" onclick="return confirm('确定要删除这个模块吗?');">删除</a></th>
+				</tr>
+				</volist>
+              </table>
+			  <br>
+                 <p align="center">{$show}</p>
+              </div>
+           </div>
+           
+           <div class="parts" style="width:492px;margin-left:10px">
+              <div class="module-add">
+                 <h style="width:472px;">模块添加</h>
+                 <form action="__APP__/Module/add" method="post" name="mform" onsubmit="return check();">
+                      <label for="name">*模块名</label>
+                      <input type="text" name="nickname" id="nickname" class="box-control" placeholder="填写模块名称" autocomplete="off"/>
+					   <!--<label for="name">*模块使用者</label>
+                      <input type="text" name="ofuser" id="ofuser" class="box-control" placeholder="填写名称" autocomplete="off"/> -->
+                      <label for="manger">*模块管理员</label>
+                      <select class="box-control" name="muser">
+                         <option value="0" selected>root管理员</option>
+                         <option value="1">普通管理员</option>
+                      </select>
+                      <input type="submit" id="btn" value="添加"/>
+                 </form>
+              </div>
+           </div>
+     </div>
+  
+  </body>
+  </html>
+  <script type="text/javascript">
+function check()
+{
+  if(document.mform.nickname.value=="")
+  {
+  alert("请填写模块名称!");
+  document.mform.nickname.focus();
+  return false;
+  }
+}
+</script>

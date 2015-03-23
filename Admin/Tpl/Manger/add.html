@@ -1,0 +1,35 @@
+<include file="Public:header"/>
+  <div id="sidebar">
+     <include file="Public:sidebar"/>
+   </div>
+  
+  <div id="main">
+      <div class="page-title">
+            	添加管理员&nbsp;&nbsp;
+      </div>
+         
+         <div class="catalog">
+             <a href="">首页</a>&nbsp;>&nbsp;<a href="">添加管理员</a>
+         </div>
+    
+    <div class="parts">
+         <div class="manger-add">
+             <h>添加新管理员</h>
+             <form action="" method="post">
+                  <label for="name">*昵称</label>
+                    <input type="text" name="nickname" id="nickname" class="box-control" placeholder="填写管理员昵称" autocomplete="off"/>
+                  <label for="password">*初始密码</label>
+                  <input type="password" class="box-control" id="password" placeholder="填写密码" autocomplete="off"/>
+                  <label>*管理员权限</label>
+                  <select id="auth" name="auth" class="box-control">
+                      <option value="0" selected>超级管理员</option>
+                      <option value="1" >普通管理员</option>
+                  </select>    
+                  
+                  <label for="more">*备注信息</label>
+                  <input type="text" name="beizhu" id="beizhu" class="box-control" placeholder="填入管理员备注信息" autocomplete="off"/></br>
+                  <input type="submit" id="btn" value="添加"/>
+              </form>
+         </div>
+         
+ </div>
