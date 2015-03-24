@@ -21,7 +21,7 @@
          </div>
          <div class="parts" style="width:574px;margin-left:20px;height:156px;">
              <h style="width:553px">搜索</h>
-             <form id="search-news" action="__APP__/News/index" method="get">
+             <form name="nform" id="search-news" action="__APP__/News/index" method="get" onsubmit="return check();">
                    &nbsp;&nbsp;<span>搜索选项</span>&nbsp;&nbsp;:
                    <select id="option" name="option-key" class="select-control">
                         <option selected value="0">按标题</option>
@@ -34,8 +34,10 @@
                     
                     &nbsp;&nbsp;<span>选择模块</span>&nbsp;&nbsp;: 
                     <select id="option" name="module" class="select-control" style="margin-top:-12px">
-                       <option value="0" selected>看电影</option>
-                       <option value="1">校园活动</option>
+                       <option value="0" selected>请选择模块</option>
+					   <volist name="result" id="vo">
+								<option value="{$vo['mid']}">{$vo['mname']}</option>
+					   </volist>
                     </select>
                     </br>  </br>
                      &nbsp;&nbsp;<span>对当前结果</span>&nbsp;&nbsp;: 
@@ -59,12 +61,17 @@
                        <th class="first">操作</th>
                     
                     </tr>
-                
+                <tbody id="tb">
 				<volist name="data" id="vo">
 				<tr>
-					<th>{$vo.nid}</th><th>{$vo.ntitle}</th><th>{$vo.nfrom}</th><th></th><th><if condition="$vo.mid eq 0">看电影<else/>校园活动</if></th><th>{$vo.nimage}</th><th>{$vo.nupdate}</th><th>{$vo.time}</th><th><a href="__APP__/News/ndelete/id/{$vo.nid}" onclick="return confirm('确定要删除这条信息吗?');">删除</a></th>
+					<th>{$vo.nid}</th><th>{$vo.ntitle}</th><th>{$vo.nfrom}</th><th><?php $content=strip_tags($vo['ncontent']);?>{$content|string::msubstr=0,15}</th><th>
+					   <volist name="result" id="vq">
+					   <if condition="$vo.mid eq $vq['mid']">{$vq['mname']}<else/></if>
+                       <!-- <option value="{vo['mid']}">{$vo['mname']}</option> -->
+					   </volist></th><th>{$vo.nimage}</th><th>{$vo.nupdate}</th><th>{$vo.ntime}</th><th><a href="__APP__/News/ndelete/id/{$vo.nid}" onclick="return confirm('确定要删除这条信息吗?');">删除</a></th>
 				</tr>
 				</volist>
+				</tbody>
                 </table>
 				<br>
                  <p align="center">{$show}</p>
@@ -77,3 +84,14 @@
     
   </body>
   </html>
+<script type="text/javascript">
+function check()
+{
+  if(document.nform.module.value=='0')
+  {
+  alert("请选择资讯所属模块!");
+  document.nform.module.focus();
+  return false;
+  }
+}
+</script>

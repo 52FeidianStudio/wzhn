@@ -6,6 +6,9 @@ class NewsAction extends Action {
 		// print_r($arr);
 		
 		$m=new Model("news");
+		
+        $module=new Model("module");
+        $result=$module->field('mid,mname')->select();
 		import("ORG.Util.String");
 		import('ORG.Util.Page');// 导入分页类
 		if(!$_GET['submit'])
@@ -43,13 +46,14 @@ class NewsAction extends Action {
 				{
 				  echo"<script>";
 				  echo" alert('sorry，找不到相关信息，可能你输入的关键字中带有'+'空格或关键字太长，你可以尝试将关键字个数变得更少!');";
-				  echo" window.location='__APP__/News/index';";
+				  echo" window.location='index';";
 				  echo"</script>";
 				}
 		
 		}
 		$this->assign(data,$arr);
 		$this->assign("show",$show);
+		 $this->assign("result",$result);
 	    $this->display();
     }
     public function add()

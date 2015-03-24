@@ -37,8 +37,9 @@ class ModuleAction extends Action {
 	   $mm=M("news");
 	   $id=$_GET['id'];
 	   $n=$m->where("mid=$id")->delete();
+	   $arr=$mm->where("mid=$id")->select();
 	   $nn=$mm->where("mid=$id")->delete();
-	   if($n>0 && $nn>0)
+	   if(($n>0 && $arr==NULL) || ($n>0 && $arr!=NULL))
 		 {
 		  $this->success("模块删除成功!","__URL__/index");
 		 }

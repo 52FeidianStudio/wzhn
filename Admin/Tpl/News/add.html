@@ -36,7 +36,7 @@
                <select  class="box-control" name="module">
                    <option value="0" selected>请选择资讯所属模块</option>
                    <volist name="result" id="vo">
-                            <option value="{vo['mid']}">{$vo['mname']}</option>
+                            <option value="{$vo['mid']}">{$vo['mname']}</option>
                    </volist>
                </select>
               </br>
@@ -69,6 +69,12 @@ function check()
   {
   alert("请填写文章作者/来源!");
   document.nform.author.focus();
+  return false;
+  }
+  if(document.nform.module.value=='0')
+  {
+  alert("请选择资讯所属模块!");
+  document.nform.module.focus();
   return false;
   }
 }
