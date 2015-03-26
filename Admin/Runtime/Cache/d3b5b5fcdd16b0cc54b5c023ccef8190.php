@@ -78,7 +78,7 @@
          </div>
          <div class="parts" style="width:574px;margin-left:20px;height:156px;">
              <h style="width:553px">搜索</h>
-             <form id="search-news" action="__APP__/News/index" method="get">
+             <form name="nform" id="search-news" action="__APP__/News/index" method="get" onsubmit="return check();">
                    &nbsp;&nbsp;<span>搜索选项</span>&nbsp;&nbsp;:
                    <select id="option" name="option-key" class="select-control">
                         <option selected value="0">按标题</option>
@@ -91,8 +91,8 @@
                     
                     &nbsp;&nbsp;<span>选择模块</span>&nbsp;&nbsp;: 
                     <select id="option" name="module" class="select-control" style="margin-top:-12px">
-                       <option value="0" selected>看电影</option>
-                       <option value="1">校园活动</option>
+                       <option value="0" selected>请选择模块</option>
+					   <?php if(is_array($result)): $i = 0; $__LIST__ = $result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo['mid']); ?>"><?php echo ($vo['mname']); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
                     </select>
                     </br>  </br>
                      &nbsp;&nbsp;<span>对当前结果</span>&nbsp;&nbsp;: 
@@ -116,10 +116,13 @@
                        <th class="first">操作</th>
                     
                     </tr>
-                
+                <tbody id="tb">
 				<?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
-					<th><?php echo ($vo["nid"]); ?></th><th><?php echo ($vo["ntitle"]); ?></th><th><?php echo ($vo["nfrom"]); ?></th><th></th><th><?php if($vo["mid"] == 0): ?>看电影<?php else: ?>校园活动<?php endif; ?></th><th><?php echo ($vo["nimage"]); ?></th><th><?php echo ($vo["nupdate"]); ?></th><th><?php echo ($vo["time"]); ?></th><th><a href="__APP__/News/ndelete/id/<?php echo ($vo["nid"]); ?>" onclick="return confirm('确定要删除这条信息吗?');">删除</a></th>
+					<th><?php echo ($vo["nid"]); ?></th><th><?php echo ($vo["ntitle"]); ?></th><th><?php echo ($vo["nfrom"]); ?></th><th><?php $content=strip_tags($vo['ncontent']); echo (string::msubstr($content,0,15)); ?></th><th>
+					   <?php if(is_array($result)): $i = 0; $__LIST__ = $result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vq): $mod = ($i % 2 );++$i; if($vo["mid"] == $vq['mid']): echo ($vq['mname']); else: endif; ?>
+                       <!-- <option value="{vo['mid']}"><?php echo ($vo['mname']); ?></option> --><?php endforeach; endif; else: echo "" ;endif; ?></th><th><?php echo ($vo["nimage"]); ?></th><th><?php echo ($vo["nupdate"]); ?></th><th><?php echo ($vo["ntime"]); ?></th><th><a href="__APP__/News/ndelete/id/<?php echo ($vo["nid"]); ?>" onclick="return confirm('确定要删除这条信息吗?');">删除</a></th>
 				</tr><?php endforeach; endif; else: echo "" ;endif; ?>
+				</tbody>
                 </table>
 				<br>
                  <p align="center"><?php echo ($show); ?></p>
@@ -132,3 +135,14 @@
     
   </body>
   </html>
+<script type="text/javascript">
+function check()
+{
+  if(document.nform.module.value=='0')
+  {
+  alert("请选择资讯所属模块!");
+  document.nform.module.focus();
+  return false;
+  }
+}
+</script>

@@ -71,10 +71,9 @@
   
   #container{
 	width:980px;
-  	height:400px;
+  	height:0 auto;
   	margin:0 auto;
   	background-color:#ffffff;
-  	display:block;
   	margin-top:25px;
   	font: 15px 'microsoft yahei', sans-serif;
   	
@@ -84,14 +83,14 @@
 	float:left;
   	width:220px;
   	height:0 auto;
-
+  	background:#fff;
   	
   }
   
   .module_ul{
   	text-align:center;
 	width:220px;
-  	height:auto;
+  	height:0 auto;
   	
   	
   }
@@ -120,19 +119,21 @@
 	width:740px;
   	height:0 auto;
   	float:right;
+  	background:#fff;
+  	margin-bottom:20px;
   }
   
 .main_right .article{
 	width:740px;
 	height:0 auto;
-	border:1px solid black;
 	list-style:none;
 }
   
 .main_right .parts{
-    border:1px solid black;
+    margin-top:10px;
+	margin-left:15px;
 	height:170px;
-	width:740px;
+	width:713px;
 	border-bottom-style:dashed;
 	border-width:1px;
 }
@@ -183,7 +184,7 @@
 }
 
 .parts-right{
-	width:100px;
+	width:87px;
 	height:170px;
 	margin-left:10px;
 	float:left;
@@ -191,25 +192,15 @@
 }
 
  .parts-right img{
-	width:100px;
+	width:87px;
  	height:170px;
  	
  } 
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
   #footer{
+  	clear:both;
   	width:100%;
   	background-color:#ffffff;
   	border-bottom: 1px solid #eee;

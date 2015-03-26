@@ -92,7 +92,7 @@
                <label for="belong">新闻所属模块</label>
                <select  class="box-control" name="module">
                    <option value="0" selected>请选择资讯所属模块</option>
-                   <?php if(is_array($result)): $i = 0; $__LIST__ = $result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="{vo['mid']}"><?php echo ($vo['mname']); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+                   <?php if(is_array($result)): $i = 0; $__LIST__ = $result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo['mid']); ?>"><?php echo ($vo['mname']); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
                </select>
               </br>
                <input type="submit" id="btn" value="发表"/>
@@ -124,6 +124,12 @@ function check()
   {
   alert("请填写文章作者/来源!");
   document.nform.author.focus();
+  return false;
+  }
+  if(document.nform.module.value=='0')
+  {
+  alert("请选择资讯所属模块!");
+  document.nform.module.focus();
   return false;
   }
 }
