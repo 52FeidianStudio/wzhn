@@ -10,7 +10,7 @@ body{
 
 #article-content{
 	width:700px;
-	height:600px;
+	height:0 auto;
 	margin:0 auto;
 	background:#fff;
 }
