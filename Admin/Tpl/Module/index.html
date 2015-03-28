@@ -5,11 +5,15 @@
   
   <div id="main">
       <div class="page-title">
-            	添加资讯&nbsp;&nbsp; 
+	   <if condition="$action eq 'edit'">
+	            修改资讯&nbsp;&nbsp; 
+        <else/>    	
+		       添加资讯&nbsp;&nbsp; 
+	   </if>
       </div>
          
          <div class="catalog">
-             <a href="">首页</a>&nbsp;>&nbsp;<a href="">添加资讯</a>
+             <a href="">首页</a>&nbsp;>&nbsp; <if condition="$action eq 'edit'">修改资讯<else/><a href="">添加资讯</a></if>
          </div>
          
          <div class="parts">
@@ -31,7 +35,7 @@
                  </tr>
                <volist name="data" id="vo">
 				<tr>
-					<th>{$vo.mid}</th><th>{$vo.mname}</th><th>{$vo.mtime}</th><th><a href="__APP__/Module/ndelete/id/{$vo.mid}" onclick="return confirm('确定要删除这个模块吗?');">删除</a></th>
+					<th>{$vo.mid}</th><th>{$vo.mname}</th><th>{$vo.mtime}</th><th><a href="__APP__/Module/edit/id/{$vo.mid}">编辑</a> | <a href="__APP__/Module/ndelete/id/{$vo.mid}" onclick="return confirm('确定要删除这个模块吗?');">删除</a></th>
 				</tr>
 				</volist>
               </table>
@@ -42,10 +46,27 @@
            
            <div class="parts" style="width:492px;margin-left:10px">
               <div class="module-add">
-                 <h style="width:472px;">模块添加</h>
-                 <form action="__APP__/Module/add" method="post" name="mform" onsubmit="return check();">
-                      <label for="name">*模块名</label>
-                      <input type="text" name="nickname" id="nickname" class="box-control" placeholder="填写模块名称" autocomplete="off"/>
+                 <!-- 增加页面与修改界面公用一个框架，通过edit方法传过来的$action判断该呈现增加页面还是修改页面 -->
+                 <form action="__APP__/Module/add/id/{$datas[0]['mid']}" method="post" name="mform" onsubmit="return check();">
+                      <!-- 编辑资讯所呈现的页面 -->
+					   <if condition="$action eq 'edit'">
+					    <h style="width:472px;">模块修改</h>
+					   <label for="name">*模块名</label>
+					   <input type="text" name="nickname" id="nickname" value="{$datas[0]['mname']}" class="box-control" placeholder="填写模块名称" autocomplete="off"/>
+                      <label for="manger">*模块管理员</label>
+                      <select class="box-control" name="muser">
+	
+                         <option value="0" <if condition="$datas[0]['mbuildby'] eq 0">selected</if> >root管理员</option>
+                         <option value="1" <if condition="$datas[0]['mbuildby'] eq 1">selected</if> >普通管理员</option>
+                      </select>
+					  <input type="submit" id="btn" value="确认修改" name="edit"/>
+					  <input type="button" id="btn" onclick="history.go(-1);" value="放弃修改">
+					  
+					  <!-- 增加资讯所呈现的页面 -->
+					  <else/>
+					  <h style="width:472px;">模块添加</h>
+					   <label for="name">*模块名</label>
+					  <input type="text" name="nickname" id="nickname"  class="box-control" placeholder="填写模块名称" autocomplete="off"/>
 					   <!--<label for="name">*模块使用者</label>
                       <input type="text" name="ofuser" id="ofuser" class="box-control" placeholder="填写名称" autocomplete="off"/> -->
                       <label for="manger">*模块管理员</label>
@@ -54,11 +75,13 @@
                          <option value="1">普通管理员</option>
                       </select>
                       <input type="submit" id="btn" value="添加"/>
+					  <input type="reset" id="btn" value="重置"/>
+					  </if>
+					  
                  </form>
               </div>
            </div>
      </div>
-  
   </body>
   </html>
   <script type="text/javascript">

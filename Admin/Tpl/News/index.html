@@ -68,7 +68,7 @@
 					   <volist name="result" id="vq">
 					   <if condition="$vo.mid eq $vq['mid']">{$vq['mname']}<else/></if>
                        <!-- <option value="{vo['mid']}">{$vo['mname']}</option> -->
-					   </volist></th><th>{$vo.nimage}</th><th>{$vo.nupdate}</th><th>{$vo.ntime}</th><th><a href="__APP__/News/ndelete/id/{$vo.nid}" onclick="return confirm('确定要删除这条信息吗?');">删除</a></th>
+					   </volist></th><th><img src="{$vo.nimage}" style="width:50px;"></th><th>{$vo.nupdate}</th><th>{$vo.ntime}</th><th><a href="__APP__/News/edit/id/{$vo.nid}">修改</a> | <a href="__APP__/News/ndelete/id/{$vo.nid}" onclick="return confirm('确定要删除这条信息吗?');">删除</a></th>
 				</tr>
 				</volist>
 				</tbody>

@@ -5,11 +5,19 @@
   
   <div id="main">
       <div class="page-title">
-            	添加资讯&nbsp;&nbsp; 
+        <if condition="$action eq 'edit'">
+	            修改资讯&nbsp;&nbsp; 
+        <else/>    	
+		       添加资讯&nbsp;&nbsp; 
+	   </if>
       </div>
          
          <div class="catalog">
+		      <if condition="$action eq 'edit'">
+              <a href="">首页</a>&nbsp;>&nbsp;<a href="">修改资讯</a>
+			  <else/>
              <a href="">首页</a>&nbsp;>&nbsp;<a href="">添加资讯</a>
+             </if>			 
          </div>
          
          <div class="parts">
@@ -21,13 +29,29 @@
          </div>
     
          
-         <div class="parts"">
+         <div class="parts">
          <div class="news-add">
             <h>填写信息</h>
-            <form name="nform"action="__URL__/upload" method="post" onsubmit="return check();">
-			 <script type="text/plain" id="editor" name="content">
+            <form name="nform"action="__URL__/upload/id/{$datas[0]['nid']}" method="post" onsubmit="return check();">
+			 <script type="text/plain" id="editor" name="content" value="">
   				</script>
   				<div class="text-part">
+				<if condition="$action eq 'edit'">
+				<label for="title">*新闻标题</label>
+               <input type="text" name="title" id="title" class="box-control" placeholder="填写文章标题" autocomplete="off" value="{$datas[0]['ntitle']}"/>
+               <label for="author">*新闻作者/来源</label>
+                    <input type="text" name="author" id="author" class="box-control" placeholder="填写文章作者/来源" autocomplete="off" value="{$datas[0]['nfrom']}"/>
+               <label for="belong">新闻所属模块</label>
+               <select  class="box-control" name="module">
+                   <!-- <option value="0" selected>请选择资讯所属模块</option> -->
+                   <volist name="result" id="vo">
+                            <option value="{$vo['mid']}" <if condition="$datas[0]['mid'] eq $vo['mid']">selected </if> >{$vo['mname']}</option>
+                   </volist>
+               </select>
+              </br>
+               <input type="submit" id="btn" value="确认修改" name="edit"/>
+			   <input type="button" id="btn" onclick="history.go(-1);" value="放弃修改">
+				 <else/>
                <label for="title">*新闻标题</label>
                <input type="text" name="title" id="title" class="box-control" placeholder="填写文章标题" autocomplete="off"/>
                <label for="author">*新闻作者/来源</label>
@@ -41,6 +65,8 @@
                </select>
               </br>
                <input type="submit" id="btn" value="发表"/>
+			   <input type="reset" id="btn" value="重置"/>
+			   </if>
                </div>
             </form>
          </div>
@@ -54,7 +80,10 @@
 
     //实例化编辑器
     //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-    UE.getEditor('editor');
+    var ue = UE.getEditor('editor');
+	ue.ready(function(){
+		ue.setContent('{$datas[0].ncontent}');
+	});
 </script>
 <script type="text/javascript">
 function check()
@@ -77,5 +106,16 @@ function check()
   document.nform.module.focus();
   return false;
   }
+   var ue = UE.getEditor('editor');
+   
+   if(ue.hasContents()==false)
+   {
+      alert('请输入文章内容');
+	  ue.focus();
+	  return false;
+   }
+   
+ 
 }
+
 </script>

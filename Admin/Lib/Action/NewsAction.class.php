@@ -17,7 +17,7 @@ class NewsAction extends Action {
 		$page=new Page($count,9);// 实例化分页类 传入总记录数和每页显示的记录数
 		 //分页跳转的时候保证查询条件
 		$show=$page->show();
-		$arr=$m->limit($page->firstRow.','.$page->listRows)->select();
+		$arr=$m->limit($page->firstRow.','.$page->listRows)->order('nid desc')->select();
 		}
 		else
 		{
@@ -41,7 +41,7 @@ class NewsAction extends Action {
 				$page=new Page($count,9);// 实例化分页类 传入总记录数和每页显示的记录数
 				 //分页跳转的时候保证查询条件
 				$show=$page->show();
-				$arr=$m->where($data)->limit($page->firstRow.','.$page->listRows)->select();
+				$arr=$m->where($data)->limit($page->firstRow.','.$page->listRows)->order('nid desc')->select();
 				if($arr==null)
 				{
 				  echo"<script>";
@@ -69,19 +69,43 @@ class NewsAction extends Action {
 	 public function upload()
     {
 	    $m=M("news");
+	    if($_POST['edit'])//编辑资讯
+		{
+		   $data['nid']=$_GET['id'];
+		   $data['ntitle']=$_POST['title'];
+		   $data['ncontent']=$_POST['content'];
+		   $data['nfrom']=$_POST['author'];
+		   $data['nupdate']=date('Y-m-d H:i:s');
+		   $data['mid']=$_POST['module'];
+
+		   $pattern = "/<img.+src=\"?(.+\.(jpg|gif|bmp|bnp|png))\"?.+>/"; 
+           preg_match($pattern,$_POST['content'],$matches);
+		   $data['nimage']=$matches[1];
+		   //var_dump($matches);
+		   //print_r($data);
+		   $n=$m->save($data);
+		}
+	    else{
 		$m->ntitle=$_POST['title'];
 	    $m->ncontent=$_POST['content'];
 	    $m->nfrom=$_POST['author'];
 	    $m->nupdate=date('Y-m-d H:i:s');
 		$m->ntime='0';
 		$m->mid=$_POST['module'];
+		$pattern = "/<img.+src=\"?(.+\.(jpg|gif|bmp|bnp|png))\"?.+>/";
+        preg_match($pattern,$_POST['content'],$matches);
+		$m->nimage=$matches[1];
+		//var_dump($matches[1]);
+		//var_dump($_POST['content']);
 		$n=$m->add(); // 写入用户数据到数据库
+		//print_r($n);
+		}
 		if($n>0){
-	    $this->success('消息发布成功！',"index");
+	    $this->success('操作成功！',"__APP__/News/index");
 		}
 		else
 		{
-		$this->error('消息发布失败，请重新发布！',"index");
+		$this->error('操作失败，请重新操作！',"__APP__/News/index");
 		}
 	    //print_r($_POST);
         //$this->display();
@@ -104,10 +128,16 @@ class NewsAction extends Action {
 	public function edit()
 	{
 	  $m=M("news");
-	  define("string","edit");
+	  $module=new Model("module");
+	  $action="edit";
 	  $id=$_GET['id'];
 	  $arr=$m->where("nid=$id")->select();
-	  $this->assign(data,$arr);
+	  $result=$module->field('mid,mname')->select();
+//         dump($result);
+//         exit;
+      $this->assign("result",$result);
+	  $this->assign(datas,$arr);
+	  $this->assign(action,$action);
 	  //var_dump($arr);
 	  $this->display("add");
 	

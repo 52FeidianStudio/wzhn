@@ -62,11 +62,15 @@
   
   <div id="main">
       <div class="page-title">
-            	添加资讯&nbsp;&nbsp; 
+        <?php if($action == 'edit'): ?>修改资讯&nbsp;&nbsp; 
+        <?php else: ?>    	
+		       添加资讯&nbsp;&nbsp;<?php endif; ?>
       </div>
          
          <div class="catalog">
-             <a href="">首页</a>&nbsp;>&nbsp;<a href="">添加资讯</a>
+		      <?php if($action == 'edit'): ?><a href="">首页</a>&nbsp;>&nbsp;<a href="">修改资讯</a>
+			  <?php else: ?>
+             <a href="">首页</a>&nbsp;>&nbsp;<a href="">添加资讯</a><?php endif; ?>			 
          </div>
          
          <div class="parts">
@@ -78,13 +82,26 @@
          </div>
     
          
-         <div class="parts"">
+         <div class="parts">
          <div class="news-add">
             <h>填写信息</h>
-            <form name="nform"action="__URL__/upload" method="post" onsubmit="return check();">
-			 <script type="text/plain" id="editor" name="content">
+            <form name="nform"action="__URL__/upload/id/<?php echo ($datas[0]['nid']); ?>" method="post" onsubmit="return check();">
+			 <script type="text/plain" id="editor" name="content" value="">
   				</script>
   				<div class="text-part">
+				<?php if($action == 'edit'): ?><label for="title">*新闻标题</label>
+               <input type="text" name="title" id="title" class="box-control" placeholder="填写文章标题" autocomplete="off" value="<?php echo ($datas[0]['ntitle']); ?>"/>
+               <label for="author">*新闻作者/来源</label>
+                    <input type="text" name="author" id="author" class="box-control" placeholder="填写文章作者/来源" autocomplete="off" value="<?php echo ($datas[0]['nfrom']); ?>"/>
+               <label for="belong">新闻所属模块</label>
+               <select  class="box-control" name="module">
+                   <!-- <option value="0" selected>请选择资讯所属模块</option> -->
+                   <?php if(is_array($result)): $i = 0; $__LIST__ = $result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo['mid']); ?>" <?php if($datas[0]['mid'] == $vo['mid']): ?>selected<?php endif; ?> ><?php echo ($vo['mname']); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+               </select>
+              </br>
+               <input type="submit" id="btn" value="确认修改" name="edit"/>
+			   <input type="button" id="btn" onclick="history.go(-1);" value="放弃修改">
+				 <?php else: ?>
                <label for="title">*新闻标题</label>
                <input type="text" name="title" id="title" class="box-control" placeholder="填写文章标题" autocomplete="off"/>
                <label for="author">*新闻作者/来源</label>
@@ -92,10 +109,11 @@
                <label for="belong">新闻所属模块</label>
                <select  class="box-control" name="module">
                    <option value="0" selected>请选择资讯所属模块</option>
-                   <?php if(is_array($result)): $i = 0; $__LIST__ = $result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="{vo['mid']}"><?php echo ($vo['mname']); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+                   <?php if(is_array($result)): $i = 0; $__LIST__ = $result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo['mid']); ?>"><?php echo ($vo['mname']); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
                </select>
               </br>
                <input type="submit" id="btn" value="发表"/>
+			   <input type="reset" id="btn" value="重置"/><?php endif; ?>
                </div>
             </form>
          </div>
@@ -109,7 +127,10 @@
 
     //实例化编辑器
     //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-    UE.getEditor('editor');
+    var ue = UE.getEditor('editor');
+	ue.ready(function(){
+		ue.setContent('<?php echo ($datas[0]["ncontent"]); ?>');
+	});
 </script>
 <script type="text/javascript">
 function check()
@@ -126,5 +147,22 @@ function check()
   document.nform.author.focus();
   return false;
   }
+  if(document.nform.module.value=='0')
+  {
+  alert("请选择资讯所属模块!");
+  document.nform.module.focus();
+  return false;
+  }
+   var ue = UE.getEditor('editor');
+   
+   if(ue.hasContents()==false)
+   {
+      alert('请输入文章内容');
+	  ue.focus();
+	  return false;
+   }
+   
+ 
 }
+
 </script>
