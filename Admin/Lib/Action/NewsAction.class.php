@@ -51,6 +51,10 @@ class NewsAction extends Action {
 				}
 		
 		}
+		$n=M('user');                 //易--添加
+		$where['uid']=$_SESSION['id'];    //易--添加
+		$sql=$n->where($where)->find();     //易--添加
+		$this->assign(abc,$sql['uauth']);     //易--添加
 		$this->assign(data,$arr);
 		$this->assign("show",$show);
 		 $this->assign("result",$result);

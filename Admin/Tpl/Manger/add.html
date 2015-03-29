@@ -1,4 +1,30 @@
 <include file="Public:header"/>
+	 <script>
+			$(function(){
+				var error=new Array();
+				$('input[name="uname"]').blur(function(){
+					var name=$(this).val();
+					$.get('__URL__/check_name',{'name':name},function(data){
+						if(data==1){
+							error['name']=1;
+							$('#message').remove();
+							$('input[name="uname"]').after("<p id='message' style='color:red'>此用户名可用</p>");
+						}else{
+							error['name']=0;
+							$('#message').remove();
+						    $('input[name="uname"]').after("<p id='message' style='color:red'>此用户名已存在</p>");
+						}
+					});
+				});
+				$('input[id="btn"]').click(function(){
+					if(error['name']){
+						$('form[name="myform"]').submit();
+					}else{
+						alert('用户名已存在',);
+					}
+				});
+			});
+		 </script>
   <div id="sidebar">
      <include file="Public:sidebar"/>
    </div>
@@ -15,20 +41,25 @@
     <div class="parts">
          <div class="manger-add">
              <h>添加新管理员</h>
-             <form action="" method="post">
-                  <label for="name">*昵称</label>
-                    <input type="text" name="nickname" id="nickname" class="box-control" placeholder="填写管理员昵称" autocomplete="off"/>
+             <form action="__APP__/Manger/add2" method="post" name='myform'>
+                  <label for="name">*昵 称</label>
+                    <input type="text" name="uname" id="nickname" class="box-control" placeholder="填写管理员昵称" autocomplete="off"/>
                   <label for="password">*初始密码</label>
-                  <input type="password" class="box-control" id="password" placeholder="填写密码" autocomplete="off"/>
+                  <input type="password" class="box-control" id="upw" name="upwd" placeholder="填写密码" autocomplete="off"/>
+				  <label for="password">*确认密码</label>
+                  <input type="password" class="box-control" id="upw2" name="upwd2" placeholder="确认密码" autocomplete="off"/>
                   <label>*管理员权限</label>
-                  <select id="auth" name="auth" class="box-control">
+                  <select id="auth" name="uauth" class="box-control">
                       <option value="0" selected>超级管理员</option>
                       <option value="1" >普通管理员</option>
                   </select>    
                   
-                  <label for="more">*备注信息</label>
-                  <input type="text" name="beizhu" id="beizhu" class="box-control" placeholder="填入管理员备注信息" autocomplete="off"/></br>
-                  <input type="submit" id="btn" value="添加"/>
+                  <label>*备注信息</label>
+                 <input type='text' name='smg' class="box-control"/></br>
+				  <label>*验 证 码</label>
+				  <input type='text' name='code' class="box-control"/>
+				  <img src="__APP__/Public/code" onclick='this.src=this.src+"?"+Math.random' /></br>
+                  <input type="submit" id="btn" value="添加" class="add"/>
               </form>
          </div>
          
