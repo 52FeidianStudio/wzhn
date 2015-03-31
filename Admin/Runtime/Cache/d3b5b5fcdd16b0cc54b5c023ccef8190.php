@@ -117,11 +117,12 @@
                     
                     </tr>
                 <tbody id="tb">
-				<?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
+				<?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i; if($vo["mid"] == $abc OR $abc == 0): ?><!--易   添加-->
+				<tr>
 					<th><?php echo ($vo["nid"]); ?></th><th><?php echo ($vo["ntitle"]); ?></th><th><?php echo ($vo["nfrom"]); ?></th><th><?php $content=strip_tags($vo['ncontent']); echo (string::msubstr($content,0,15)); ?></th><th>
 					   <?php if(is_array($result)): $i = 0; $__LIST__ = $result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vq): $mod = ($i % 2 );++$i; if($vo["mid"] == $vq['mid']): echo ($vq['mname']); else: endif; ?>
                        <!-- <option value="{vo['mid']}"><?php echo ($vo['mname']); ?></option> --><?php endforeach; endif; else: echo "" ;endif; ?></th><th><img src="<?php echo ($vo["nimage"]); ?>" style="width:50px;"></th><th><?php echo ($vo["nupdate"]); ?></th><th><?php echo ($vo["ntime"]); ?></th><th><a href="__APP__/News/edit/id/<?php echo ($vo["nid"]); ?>">修改</a> | <a href="__APP__/News/ndelete/id/<?php echo ($vo["nid"]); ?>" onclick="return confirm('确定要删除这条信息吗?');">删除</a></th>
-				</tr><?php endforeach; endif; else: echo "" ;endif; ?>
+				</tr><?php endif; endforeach; endif; else: echo "" ;endif; ?>
 				</tbody>
                 </table>
 				<br>

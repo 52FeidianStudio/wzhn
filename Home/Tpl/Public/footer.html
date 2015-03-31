@@ -3,6 +3,17 @@
       <p>CopyRight©2015 版权所有：华中农业沸点工作室</p>
       <p>设计：沸点工作室  &nbsp; &nbsp; &nbsp;技术支持：沸点工作室</p>
    </div>
-   
+    <script type="text/javascript"  src="__PUBLIC__/js/jquery.min.js"></script>
+    <script type="text/javascript">
+         $("#form").submit(function(){
+        	var key=$("#search_box");
+        	if(key.val()=="")
+        		{
+        		   alert("没有输入任何关键字,为无效操作!");
+        		   key.focus();
+        		   return false;
+        		}
+         });
+    </script>
    </body>
    </html>

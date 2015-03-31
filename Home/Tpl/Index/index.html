@@ -5,7 +5,7 @@
              <img src="__PUBLIC__/images/icon/logo.jpg"/>
          </div>
          <div class="search">
-              <form id="form">
+              <form id="form" action="__URL__/search" method="post">
                   <input type="text" name="key" id="search_box" placeholder="请输入关键字进行搜索" autocomplete="off"/>
                   <input type="submit" id="btn" value="咨讯搜索"/>
               </form>
@@ -20,6 +20,23 @@
                     <li><a href="__APP__/Index/getType/t/{$vo.mid}">{$vo.mname}</a></li>
                 </volist>
             </ul>
+            
+            <div class="link">
+                <h1>校园链接</h1>
+                <div class="link-list">
+                    <a href="http://jw.hzau.edu.cn/">本科生教务系统</a>
+                    <a href="http://yjsjw.hzau.edu.cn/pyxx/login.aspx">研究生教务系统</a>
+                    <a href="http://lib.hzau.edu.cn/">图书馆</a>
+                    <a href="http://www.52feidian.net/">沸点官网</a>
+                    <a href="http://sport.hzau.edu.cn/">华农体育部</a>
+                    <a href="http://www.hzau.edu.cn/2013/sitemap/jiaoxue_link.html">教学管理</a>
+                    <a href="http://ecard.hzau.edu.cn/">校一卡通</a>
+                    <a href="http://news.hzau.edu.cn/">南湖新闻网</a>
+                    <a href="http://bbs.hzau.edu.cn/">南湖论坛</a>
+                    <a href="http://nhjy.hzau.edu.cn/news/news_5.asp">精品课程</a>
+                </div>
+            
+            </div>
          </div>
          
          <div class="main_right">
@@ -41,8 +58,6 @@
                 
               
               </div>
-      
-        
       </div>
    
 <include file="Public:footer"/>

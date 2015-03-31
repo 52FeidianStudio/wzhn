@@ -2,10 +2,10 @@
 // 本类由系统自动生成，仅供测试用途
 class IndexAction extends Action {
     public function index(){
-       $m=M('Module');
+
+        $m=M('Module');
        $news=D('News');
        $result=$news->relation(true)->select();
-       
        $arr=$m->field('mid,mname')->select();
 
 
@@ -43,5 +43,23 @@ class IndexAction extends Action {
             $this->assign("list",$types);
            $this->display('index');
          }
+    }
+    
+    
+    public function search()
+    {
+        $key = $_POST['key'];
+        $m=M('Module');
+        $news = D('News');
+        $condition['ntitle'] = array('like',"%$key%");
+        $condition['ncontent'] = array('like',"%$key%");
+        $condition['_logic'] = 'or';
+        $arr=$m->field('mid,mname')->select();
+        $list=$news->where($condition)->relation(true)->select();
+//         dump($list);
+//         exit;
+        $this->assign('list',$list);
+        $this->assign("arr",$arr);
+        $this->display('index');
     }
 }
