@@ -182,20 +182,19 @@
 	width:620px;
 	height:170px;
 	float:left;
-	
 }
 
 .parts-right{
 	width:87px;
 	height:170px;
-	margin-left:10px;
 	float:left;
+	margin-left:2px;
 	
 }
 
  .parts-right img{
 	width:87px;
- 	height:170px;
+ 	height:160px;
  	
  } 
  

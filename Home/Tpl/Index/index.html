@@ -45,10 +45,22 @@
                 	 <li class="parts">
                	      <div class="parts-left">
                       <p class="article-title"> <a href="__APP__/Index/content/e/{$vo.nid}">{$vo['ntitle']}</a></p>
-                      <div class="article-details"><font class="date">发布于:{$vo['nbuild']}</font>&nbsp;&nbsp;<font class="skan">浏览次数:{$vo['ntime']}</font>&nbsp;&nbsp;<font class="type">分类:{$vo['mname']}</font></div></br>
+                      <div class="article-details"><font class="date">发布于:{$vo['nupdate']}</font>&nbsp;&nbsp;<font class="skan">浏览次数:{$vo['ntime']}</font>&nbsp;&nbsp;<font class="type">分类:{$vo['mname']}</font></div></br>
                       <p class="article-content">{$vo['ncontent']|strip_tags|subtext=100}</p>
                       <!-- htmlspecialchars_decode 是把实体字符转化成字符，比如 &lt; 变成 '<'  -->
                       <div class="see-more"><a href="__APP__/Index/content/e/{$vo.nid}">查看全文</a></div>
+                      </div>
+                      
+                      <div class="parts-right">
+                     
+                        <a href="__APP__/Index/content/e/{$vo.nid}"><img src="<?php 
+						  
+						  $pattern = "/<img.+src=\"?(.+\.(jpg|gif|bmp|bnp|png))\"?.+>/";
+                          preg_match($pattern,$vo['ncontent'],$matches);
+		                  $data=$matches[1];
+						  echo $data;?>"></a>
+                     
+                      
                       </div>
           
                     </li>

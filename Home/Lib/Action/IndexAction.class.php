@@ -7,7 +7,7 @@ class IndexAction extends Action {
        $news=D('News');
        $result=$news->relation(true)->select();
        $arr=$m->field('mid,mname')->select();
-
+       
 
       $this->assign("arr",$arr);
       $this->assign("list",$result);
