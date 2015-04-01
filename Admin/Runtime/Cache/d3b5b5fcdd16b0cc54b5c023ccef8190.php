@@ -126,7 +126,7 @@
 				</tbody>
                 </table>
 				<br>
-                 <p align="center"><?php echo ($show); ?></p>
+                 <div align="center" class="meneame"><?php echo ($show); ?></div>
             </div>
           
          </div>

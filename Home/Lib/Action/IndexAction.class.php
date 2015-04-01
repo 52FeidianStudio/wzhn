@@ -5,13 +5,16 @@ class IndexAction extends Action {
 
         $m=M('Module');
        $news=D('News');
-       $count = $news->count();
+      $count=$news->count();
        import('ORG.Util.Page');// 导入分页类
-       $arr=$m->field('mid,mname')->limit($p->firstRow, $p->listRows)->select();
-       $result = $news->relation(true)->select();
+       $arr=$m->field('mid,mname')->select();
+	   $page=new Page($count,9);// 实例化分页类 传入总记录数和每页显示的记录数
+		 //分页跳转的时候保证查询条件
+		$show=$page->show();
+		$result=$news->relation(true)->limit($page->firstRow.','.$page->listRows)->order('nid desc')->select();
       $this->assign("arr",$arr);
       $this->assign("list",$result);
-   
+      $this->assign("show",$show);
 	  $this->display();
     }
     
