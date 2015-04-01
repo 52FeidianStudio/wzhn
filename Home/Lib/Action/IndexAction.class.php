@@ -5,10 +5,10 @@ class IndexAction extends Action {
 
         $m=M('Module');
        $news=D('News');
-       $result=$news->relation(true)->select();
-       $arr=$m->field('mid,mname')->select();
-       
-
+       $count = $news->count();
+       import('ORG.Util.Page');// 导入分页类
+       $arr=$m->field('mid,mname')->limit($p->firstRow, $p->listRows)->select();
+       $result = $news->relation(true)->select();
       $this->assign("arr",$arr);
       $this->assign("list",$result);
    

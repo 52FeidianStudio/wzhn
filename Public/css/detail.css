@@ -31,3 +31,12 @@ body{
 	text-align:center;
 	margin-top:15px;
 }
+.share{
+	margin-left:200px;
+	}
+	
+	.share-detail{
+	  position:relative;
+		top:-30px;
+		left:110px;
+	}
