@@ -84,26 +84,38 @@ class NewsAction extends Action {
 
 		   $pattern = "/<img.+src=\"?(.+\.(jpg|gif|bmp|bnp|png))\"?.+>/"; 
            preg_match($pattern,$_POST['content'],$matches);
+           if($matches[1])
+           {
 		   $data['nimage']=$matches[1];
+           }
 		   //var_dump($matches);
 		   //print_r($data);
 		   $n=$m->save($data);
 		}
 	    else{
-		$m->ntitle=$_POST['title'];
-	    $m->ncontent=$_POST['content'];
-	    $m->nfrom=$_POST['author'];
-	    $m->nupdate=date('Y-m-d H:i:s');
-		$m->ntime='0';
-		$m->mid=$_POST['module'];
+// 	        dump($_POST);
+		$data->ntitle=$_POST['title'];
+	    $data->ncontent=$_POST['content'];
+	    $data->nfrom=$_POST['author'];
+	    $data->nupdate=date('Y-m-d H:i:s');
+		$data->ntime='0';
+		$data->mid=$_POST['module'];
 		$pattern = "/<img.+src=\"?(.+\.(jpg|gif|bmp|bnp|png))\"?.+>/";
         preg_match($pattern,$_POST['content'],$matches);
-		$m->nimage=$matches[1];
-		//var_dump($matches[1]);
+        if($matches[1])
+        {
+		$data->nimage=$matches[1];
+        }
+// 		dump($data);
+// 		var_dump($matches[1]);
 		//var_dump($_POST['content']);
+		$m->create($data);
 		$n=$m->add(); // 写入用户数据到数据库
 		//print_r($n);
+// 		dump($n);
+// 		exit;
 		}
+		
 		if($n>0){
 	    $this->success('操作成功！',"__APP__/News/index");
 		}
