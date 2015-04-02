@@ -1,3 +1,4 @@
+
 <include file="Public:header"/>
 <body>
       <div id="header">
@@ -5,7 +6,7 @@
              <img src="__PUBLIC__/images/icon/logo.jpg"/>
          </div>
          <div class="search">
-              <form id="form" action="__URL__/search" method="post">
+              <form id="form" action="__URL__/search" method="get">
                   <input type="text" name="key" id="search_box" placeholder="请输入关键字进行搜索" autocomplete="off"/>
                   <input type="submit" id="btn" value="咨讯搜索"/>
               </form>
@@ -53,12 +54,7 @@
                       
                       <div class="parts-right">
                      
-                        <a href="__APP__/Index/content/e/{$vo.nid}"><img src="<?php 
-						  
-						  $pattern = "/<img.+src=\"?(.+\.(jpg|gif|bmp|bnp|png))\"?.+>/";
-                          preg_match($pattern,$vo['ncontent'],$matches);
-		                  $data=$matches[1];
-						  echo $data;?>"></a>
+                        <img src="{$vo.nimage}"/>
                      
                       
                       </div>

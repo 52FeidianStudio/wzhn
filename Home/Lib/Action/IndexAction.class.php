@@ -6,12 +6,14 @@ class IndexAction extends Action {
         $m=M('Module');
        $news=D('News');
       $count=$news->count();
-       import('ORG.Util.Page');// 导入分页类
        $arr=$m->field('mid,mname')->select();
+       import('ORG.Util.Page');// 导入分页类
 	   $page=new Page($count,9);// 实例化分页类 传入总记录数和每页显示的记录数
 		 //分页跳转的时候保证查询条件
 		$show=$page->show();
-		$result=$news->relation(true)->limit($page->firstRow.','.$page->listRows)->order('nid desc')->select();
+		$result=$news->relation(true)->limit($page->firstRow.','.$page->listRows)->select();
+// 		dump($result);
+// 		exit;
       $this->assign("arr",$arr);
       $this->assign("list",$result);
       $this->assign("show",$show);
@@ -38,10 +40,15 @@ class IndexAction extends Action {
             $m=M('Module');
             $mid=$_GET['t'];
             $News=D('News');
+            $count=$News->where("mid=$mid")->count();
+            import('ORG.Util.Page');// 导入分页类
+            $page=new Page($count,9);// 实例化分页类 传入总记录数和每页显示的记录数
+            //分页跳转的时候保证查询条件
+            $show=$page->show();
             $arr=$m->field('mid,mname')->select();
-            $types=$News->where("mid=$mid")->select();
+            $types=$News->where("mid=$mid")->relation(true)->limit($page->firstRow.','.$page->listRows)->select();
            // dump($types);
-            
+            $this->assign("show",$show);
             $this->assign("arr",$arr);
             $this->assign("list",$types);
            $this->display('index');
@@ -51,16 +58,23 @@ class IndexAction extends Action {
     
     public function search()
     {
-        $key = $_POST['key'];
+        $key = $_GET['key'];
         $m=M('Module');
         $news = D('News');
+       
         $condition['ntitle'] = array('like',"%$key%");
         $condition['ncontent'] = array('like',"%$key%");
         $condition['_logic'] = 'or';
+        $count=$news->where($condition)->count();
+        import('ORG.Util.Page');// 导入分页类
+        $page=new Page($count,9);// 实例化分页类 传入总记录数和每页显示的记录数
+        //分页跳转的时候保证查询条件
+        $show=$page->show();
         $arr=$m->field('mid,mname')->select();
-        $list=$news->where($condition)->relation(true)->select();
+        $list=$news->where($condition)->relation(true)->limit($page->firstRow.','.$page->listRows)->order('nid desc')->select();
 //         dump($list);
 //         exit;
+        $this->assign("show",$show);
         $this->assign('list',$list);
         $this->assign("arr",$arr);
         $this->display('index');
