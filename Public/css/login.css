@@ -1,0 +1,51 @@
+*{
+	margin:0px;
+	padding:0px;
+}
+body{
+  	height:0 auto;
+	margin:0 auto;
+  	background-color:#f5f5f5;
+	background:url('../images/static/login_bg.png');
+}
+
+#login{
+	 width:300px;
+	height:350px;
+	margin:0 auto;
+	margin-top:100px;
+    background:url('../images/static/bg1.png');
+}
+.title{
+	font-family: "微软雅黑";
+	font-size:20px;
+	text-align:center;
+	
+	color:#fff;
+	padding-top:30px;
+	margin-bottom:20px;
+}
+.input-type input{
+	width: 264px;
+    height: 35px;
+    line-height: 35px;
+    margin: 10px 0 10px 18px;
+    padding-left: 10px;
+    font-size: 14px;
+    font-family: "微软雅黑";
+    border-style: none;
+    float: left;
+}
+#submit-btn{
+	width:80px;
+	height:35px;
+	line-height:35px;
+	color:#fff;
+	text-align:center;
+	background:#3178b1;
+	border:none;
+	margin-left:20px;
+	font-size:15px;
+	margin-top:-10px;
+    font-family: "微软雅黑";
+}
