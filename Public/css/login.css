@@ -6,7 +6,7 @@ body{
   	height:0 auto;
 	margin:0 auto;
   	background-color:#f5f5f5;
-	background:url('../images/static/login_bg.png');
+	background:url('../images/static/login_bg.png') no-repeat top center;
 }
 
 #login{
