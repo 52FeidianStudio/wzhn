@@ -1,0 +1,41 @@
+<include file="Public:header"/>
+     <div id="sidebar">
+     <include file="Public:sidebar"/>
+     </div>
+     <div id="main">
+         <div class="page-title">
+            	系统首页&nbsp;&nbsp; <small>欢迎使用个人博客系统 </small>
+         </div>
+         
+         <div class="catalog">
+             <a href="">首页 &nbsp;&nbsp;>&nbsp;&nbsp;修改密码</a> 
+         </div>
+         
+         <div class="parts">
+            <div class="part-desc">
+               <h>板块说明</h>
+               <p1>该板块用于管理员修改密码</p1>
+            </div>
+         </div>
+         
+         <div class="parts">
+            <div class="change-pwd">
+               <h>修改密码</h>
+                 <form action="__URL__/change" method="post" id="change-form">
+                  <label for="password">*新密码</label>
+                  <input type="password" class="box-control" id="password" name="password" placeholder="填写密码" autocomplete="off"/>
+                  <label>*确认密码</label>
+                  <input type="password" class="box-control"  id="repassword" name="repassword" placeholder="填写确认密码" autocomplete="off"/></br>
+                  <input type="submit" id="btn" value="添加"/>
+                  <div id="msg"></div>
+              </form>
+            </div>
+         </div>
+     </div>
+      <script type="text/javascript"  src="__PUBLIC__/Js/jquery.min.js"></script>
+          <script type="text/javascript"  src="__PUBLIC__/Js/admin.js"></script>
+  
+     
+     </body>
+     </html>
+     

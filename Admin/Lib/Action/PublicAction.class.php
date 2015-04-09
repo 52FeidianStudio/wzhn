@@ -1,8 +1,6 @@
 <?php
 header("Content-Type:text/html; charset=utf-8");
 class PublicAction extends Action{
-    
-  
 	public function code(){
 	//生成验证码
 		import('ORG.Util.Image');

@@ -10,4 +10,10 @@ class IndexAction extends Action {
 		}   
 		//$this->display();
 	}
+	public function logOut()
+	{
+	    session(null);
+	    $this->redirect('Login/index');
+	
+	}
 }

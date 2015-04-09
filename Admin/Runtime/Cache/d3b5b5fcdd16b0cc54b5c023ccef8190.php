@@ -20,8 +20,8 @@
               <p style="float:left;">玩转华农后台管理系统</p>
           </div>
           <div class="header-right">
-             <a  href="#"><img src="__PUBLIC__/images/static/home.png"><font class="go-home">首页</font></a>
-             <a href="#"><img src="__PUBLIC__/images/static/LoginOut.png"><font class="go-out">退出</font></a>
+             <a  href="/wzhn/index.php"><img src="__PUBLIC__/images/static/home.png"><font class="go-home">首页</font></a>
+             <a href="__URL__/logOut"><img src="__PUBLIC__/images/static/LoginOut.png"><font class="go-out">退出</font></a>
           </div>
       </div>
       
@@ -72,7 +72,7 @@
          <div class="parts" style="width:452px;">
             <div class="part-desc">
                <h style="width:430px;">板块说明</h>
-               <p1>本版块用于查看已经发表的文章。还有文章搜索功能，你还可以点击按钮<font><a href="">写新文章</a></font></p1>
+               <p1>本版块用于查看已经发表的文章。还有文章搜索功能，你还可以点击按钮<font><a href="__URL__/add">写新文章</a></font></p1>
             </div>
           
          </div>

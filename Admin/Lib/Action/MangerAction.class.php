@@ -39,4 +39,8 @@ class MangerAction extends PublicAction {
 		$sql=$m->where($where)->count();
 		if($sql){echo 0;}else{echo 1;}
 	}
+	
+	public function edit(){
+	    $this->display();
+	}
 }
