@@ -1,10 +1,11 @@
 <?php
-class NewsAction extends Action {
+class NewsAction extends PublicAction {
     public function index(){
 	    // $m=M("news");//测试数据库数据
 		// $arr=$m->select();
 		// print_r($arr);
-		
+		$this->check_limit(1);   
+		$this->check_time();
 		$m=new Model("news");
 		
         $module=new Model("module");
@@ -52,7 +53,7 @@ class NewsAction extends Action {
 		
 		}
 		$n=M('user');                 //易--添加
-		$where['uid']=$_SESSION['id'];    //易--添加
+		$where['uid']=$_SESSION['uid'];    //易--添加
 		$sql=$n->where($where)->find();     //易--添加
 		$this->assign(abc,$sql['uauth']);     //易--添加
 		$this->assign(data,$arr);
@@ -62,6 +63,8 @@ class NewsAction extends Action {
     }
     public function add()
     {
+		$this->check_limit(1);   
+		$this->check_time();
         $module=new Model("module");
         $result=$module->field('mid,mname')->select();
 //         dump($result);

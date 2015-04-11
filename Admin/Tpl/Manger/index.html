@@ -35,7 +35,25 @@
                       <th class="first">添加时间</th>
                       <th class="first">操作</th>
                     </tr>
+					<volist name='arr' id='vo'>
+					<tr>
+						<th> {$vo.uid}</th>	
+						<th> {$vo.uname}</th>
+						<if condition="$vo.uauth eq  0">						
+						<th>超级管理员</th>
+						<else/>
+						<th>普通管理员</th>
+						</if>
+						<th> {$vo.umsg}</th>
+						<th> {$vo.ubuildby}</th>		
+						<th> {$vo.ubuild}</th>	
+						<th> <a href='__APP__/Manger/delete?uid={$vo.uid}'>删除</a></th>	
+						
+					</tr>
+					</volist>
                 </table>
+				<br>
+                 <div align="center" class="meneame">{$show}</div>
             </div>
          </div>
          </div>

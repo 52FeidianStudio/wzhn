@@ -8,19 +8,19 @@ class PublicAction extends Action{
     }
     public function check_limit($limit){
     //检查用户权限,$limit表示用户权限为多少是可以访问该页  
-		if($_SESSION['id']==null){
+		if($_SESSION['uid']==null){
 			$this->error('请先登录!!!!',__APP__.'/Login/index');
 		}else{
 			$m=M('user');
-			$where['uid']=$_SESSION['id'];
+			$where['uid']=$_SESSION['uid'];
 			$sql=$m->where($where)->find();
-			if($_SESSION['pwd_m']==$sql['upwd']){
-				if($sql['uid']==0||$limit==1){
+			if($_SESSION['upwd']==$sql['upwd']){
+				if($sql['uauth']==0||$limit==1){
 				}else{
-					$this->error('权限不足',__APP__.'/Index/slt');//要更改跳转页*********
+					$this->error('权限不足',__APP__.'/Index/index',1);//要更改跳转页*********
 				}
 			}else{
-					$this->error('密码不正确',__APP__.'/Login/index');;
+					$this->error('密码不正确',__APP__.'/Login/index',1);;
 			}	   
 	    }
     }

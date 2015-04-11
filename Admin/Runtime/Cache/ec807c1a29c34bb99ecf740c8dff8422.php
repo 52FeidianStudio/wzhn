@@ -20,8 +20,8 @@
               <p style="float:left;">玩转华农后台管理系统</p>
           </div>
           <div class="header-right">
-             <a  href="#"><img src="__PUBLIC__/images/static/home.png"><font class="go-home">首页</font></a>
-             <a href="#"><img src="__PUBLIC__/images/static/LoginOut.png"><font class="go-out">退出</font></a>
+             <a  href="/wzhn/index.php"><img src="__PUBLIC__/images/static/home.png"><font class="go-home">首页</font></a>
+             <a href="__URL__/logOut"><img src="__PUBLIC__/images/static/LoginOut.png"><font class="go-out">退出</font></a>
           </div>
       </div>
       
@@ -39,6 +39,7 @@
 	   <li id="one" class="manger"> <a href="#one">管理员管理</a>
 		  <ul class="sub-menu">
 			<li><a href="__APP__/Manger/index">管理员列表</a></li>
+			<li><a href="__APP__/Manger/edit">密码修改</a></li>
 			<li><a href="__APP__/Manger/add">添加管理员</a></li>
 		  </ul>
 	   </li>

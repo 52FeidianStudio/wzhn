@@ -33,6 +33,7 @@ public function doLogin(){
 		if($arr){
 			$_SESSION['uname']=$uname;//向session写入uname
 			$_SESSION['uid']=$arr['uid'];
+			$_SESSION['upwd']=md5($upwd);
 			$this->success('用户登录成功',U('Index/index'));
 		}else{
 			$this->error('用户名或密码不正确!');
