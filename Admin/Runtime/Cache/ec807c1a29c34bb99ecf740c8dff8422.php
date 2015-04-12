@@ -21,7 +21,7 @@
           </div>
           <div class="header-right">
              <a  href="/wzhn/index.php"><img src="__PUBLIC__/images/static/home.png"><font class="go-home">首页</font></a>
-             <a href="__URL__/logOut"><img src="__PUBLIC__/images/static/LoginOut.png"><font class="go-out">退出</font></a>
+             <a href="__APP__/Index/logOut"><img src="__PUBLIC__/images/static/LoginOut.png"><font class="go-out">退出</font></a>
           </div>
       </div>
       
@@ -31,7 +31,7 @@
   <div id="sidebar">
             <div class="person">
           <div class="person-img"><img src="__PUBLIC__/images/static/person.png"/></div>
-          <p class="welcome">某某你好</p>
+          <p class="welcome"><?php echo ($name); ?>你好</p>
        </div>
 	   <div id="left">
 		  <ul class="accordion">
@@ -97,7 +97,9 @@
                <label for="belong">新闻所属模块</label>
                <select  class="box-control" name="module">
                    <!-- <option value="0" selected>请选择资讯所属模块</option> -->
-                   <?php if(is_array($result)): $i = 0; $__LIST__ = $result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo['mid']); ?>" <?php if($datas[0]['mid'] == $vo['mid']): ?>selected<?php endif; ?> ><?php echo ($vo['mname']); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+                  
+                            <option value="<?php echo ($result['0']['mid']); ?>"><?php echo ($result['0']['mname']); ?></option>
+                 
                </select>
               </br>
                <input type="submit" id="btn" value="确认修改" name="edit"/>
@@ -109,8 +111,9 @@
                     <input type="text" name="author" id="author" class="box-control" placeholder="填写文章作者/来源" autocomplete="off"/>
                <label for="belong">新闻所属模块</label>
                <select  class="box-control" name="module">
-                   <option value="0" selected>请选择资讯所属模块</option>
-                   <?php if(is_array($result)): $i = 0; $__LIST__ = $result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo['mid']); ?>"><?php echo ($vo['mname']); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+                
+                            <option value="<?php echo ($result['0']['mid']); ?>"><?php echo ($result['0']['mname']); ?></option>
+              
                </select>
               </br>
                <input type="submit" id="btn" value="发表"/>

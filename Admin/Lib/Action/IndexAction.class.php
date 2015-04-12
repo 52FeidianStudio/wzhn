@@ -5,7 +5,9 @@ class IndexAction extends PublicAction {
 		//判断用户是否登陆过
 		$this->check_limit(1);   
 		$this->check_time();
+		$uname=$_SESSION['uname'];
 		if(isset($_SESSION['uname']) && $_SESSION['uname']!=''){
+			$this->assign('name',$uname);
 			$this->display();
 		}else{
 			$this->redirect('Login/index');
@@ -16,6 +18,6 @@ class IndexAction extends PublicAction {
 	{
 	    session(null);
 	    $this->redirect('Login/index');
-	
+
 	}
 }

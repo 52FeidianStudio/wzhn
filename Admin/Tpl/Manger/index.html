@@ -39,10 +39,10 @@
 					<tr>
 						<th> {$vo.uid}</th>	
 						<th> {$vo.uname}</th>
-						<if condition="$vo.uauth eq  0">						
+						<if condition="$vo.mid eq  0">						
 						<th>超级管理员</th>
 						<else/>
-						<th>普通管理员</th>
+						<th>{$vo.mname}</th>
 						</if>
 						<th> {$vo.umsg}</th>
 						<th> {$vo.ubuildby}</th>		

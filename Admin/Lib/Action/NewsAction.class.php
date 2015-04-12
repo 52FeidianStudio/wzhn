@@ -14,6 +14,12 @@ class NewsAction extends PublicAction {
 		import('ORG.Util.Page');// 导入分页类
 		if(!$_GET['submit'])
 		{
+		$n=M('user');                 //易--添加
+		$where['uid']=$_SESSION['uid'];    //易--添加
+		$sql=$n->where($where)->find();     //易--添加
+		if($sql['mid']!=0){
+			$data['uid'] = $_SESSION['uid']; 
+		}
 		$count=$m->where($data)->count();
 		$page=new Page($count,9);// 实例化分页类 传入总记录数和每页显示的记录数
 		 //分页跳转的时候保证查询条件
@@ -55,21 +61,22 @@ class NewsAction extends PublicAction {
 		$n=M('user');                 //易--添加
 		$where['uid']=$_SESSION['uid'];    //易--添加
 		$sql=$n->where($where)->find();     //易--添加
-		$this->assign(abc,$sql['uauth']);     //易--添加
+		$this->assign(abc,$sql['mid']);     //易--添加
+		$this->assign(uid,$_SESSION['uid']);  //易--添加
 		$this->assign(data,$arr);
 		$this->assign("show",$show);
-		 $this->assign("result",$result);
+		$this->assign("result",$result);
 	    $this->display();
     }
     public function add()
     {
 		$this->check_limit(1);   
 		$this->check_time();
-        $module=new Model("module");
-        $result=$module->field('mid,mname')->select();
-//         dump($result);
-//         exit;
-        $this->assign("result",$result);
+        $m= D('User'); 
+        $where['uid']=$_SESSION['uid'];
+        $arr=$m->relation(true)->where($where)->select();
+        //dump($arr);exit;
+        $this->assign("result",$arr);
         $this->display();
     }
 	//资料上传到数据库
@@ -84,7 +91,7 @@ class NewsAction extends PublicAction {
 		   $data['nfrom']=$_POST['author'];
 		   $data['nupdate']=date('Y-m-d H:i:s');
 		   $data['mid']=$_POST['module'];
-
+		  
 		   $pattern = "/<img.+src=\"?(.+\.(jpg|gif|bmp|bnp|png))\"?.+>/"; 
            preg_match($pattern,$_POST['content'],$matches);
            if($matches[1])
@@ -103,6 +110,7 @@ class NewsAction extends PublicAction {
 	    $data->nupdate=date('Y-m-d H:i:s');
 		$data->ntime='0';
 		$data->mid=$_POST['module'];
+		$data->uid=$_SESSION['uid'];
 		$pattern = "/<img.+src=\"?(.+\.(jpg|gif|bmp|bnp|png))\"?.+>/";
         preg_match($pattern,$_POST['content'],$matches);
         if($matches[1])
@@ -150,10 +158,15 @@ class NewsAction extends PublicAction {
 	  $module=new Model("module");
 	  $action="edit";
 	  $id=$_GET['id'];
+
 	  $arr=$m->where("nid=$id")->select();
-	  $result=$module->field('mid,mname')->select();
+	 // $result=$module->field('mid,mname')->select();
 //         dump($result);
 //         exit;
+	  $m = D('User');
+	  $where['uid']=$_SESSION['uid'];
+      $result=$m->relation(true)->where($where)->select();
+        //dump($arr);exit;
       $this->assign("result",$result);
 	  $this->assign(datas,$arr);
 	  $this->assign(action,$action);

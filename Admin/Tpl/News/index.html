@@ -5,7 +5,7 @@
   
   <div id="main">
       <div class="page-title">
-            	资讯列表&nbsp;&nbsp;
+            	资讯列表
       </div>
          
          <div class="catalog">
@@ -31,17 +31,17 @@
                     
                     <input type="text" name="key" class="select-control" style="width:230px;"/>
                     <input type="submit" id="sea-btn" value="搜索" name="submit"/>
-                    
+                     <if condition="$abc eq 0">
                     &nbsp;&nbsp;<span>选择模块</span>&nbsp;&nbsp;: 
                     <select id="option" name="module" class="select-control" style="margin-top:-12px">
-                       <option value="0" selected>请选择模块</option>
+                      <option value="0" selected>请选择模块</option>
 					   <volist name="result" id="vo">
 								<option value="{$vo['mid']}">{$vo['mname']}</option>
 					   </volist>
                     </select>
-                    </br>  </br>
-                     &nbsp;&nbsp;<span>对当前结果</span>&nbsp;&nbsp;: 
-                     <font><a href="">按发布时间排序</a></font>  &nbsp;&nbsp;<font><a href="">按阅读量排序</a></font>&nbsp;&nbsp;<font><a href="">按最近修改排序</a></font>
+                    </br>
+                    </br>
+                    </if>   
              
              </form>
          </div>
@@ -63,7 +63,7 @@
                     </tr>
                 <tbody id="tb">
 				<volist name="data" id="vo">
-				<if condition="$vo.mid eq $abc OR $abc eq 0">  <!--易   添加-->
+				<if condition="$vo.uid eq $uid OR $abc eq 0">  <!--易   添加-->
 				<tr>
 					<th>{$vo.nid}</th><th>{$vo.ntitle}</th><th>{$vo.nfrom}</th><th><?php $content=strip_tags($vo['ncontent']);?>{$content|string::msubstr=0,15}</th><th>
 					   <volist name="result" id="vq">

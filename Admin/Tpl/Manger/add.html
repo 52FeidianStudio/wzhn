@@ -1,66 +1,102 @@
 <include file="Public:header"/>
-	 <script>
-			$(function(){
-				var error=new Array();
-				$('input[name="uname"]').blur(function(){
-					var name=$(this).val();
-					$.get('__URL__/check_name',{'name':name},function(data){
-						if(data==1){
-							error['name']=1;
-							$('#message').remove();
-							$('input[name="uname"]').after("<p id='message' style='color:red'>此用户名可用</p>");
-						}else{
-							error['name']=0;
-							$('#message').remove();
-						    $('input[name="uname"]').after("<p id='message' style='color:red'>此用户名已存在</p>");
-						}
-					});
-				});
-				$('input[id="btn"]').click(function(){
-					if(error['name']){
-						$('form[name="myform"]').submit();
-					}else{
-						alert('用户名已存在');
-					}
-				});
-			});
-		 </script>
-  <div id="sidebar">
-     <include file="Public:sidebar"/>
-   </div>
+<div id="sidebar">
+	<include file="Public:sidebar"/>
+</div>
   
-  <div id="main">
-      <div class="page-title">
-            	添加管理员&nbsp;&nbsp;
-      </div>
-         
-         <div class="catalog">
-             <a href="">首页</a>&nbsp;>&nbsp;<a href="">添加管理员</a>
-         </div>
-    
-    <div class="parts">
-         <div class="manger-add">
-             <h>添加新管理员</h>
-             <form action="__APP__/Manger/add2" method="post" name='myform'>
-                  <label for="name">*昵 称</label>
-                    <input type="text" name="uname" id="nickname" class="box-control" placeholder="填写管理员昵称" autocomplete="off"/>
-                  <label for="password">*初始密码</label>
-                  <input type="password" class="box-control" id="upw" name="upwd" placeholder="填写密码" autocomplete="off"/>
-				  <label for="password">*确认密码</label>
-                  <input type="password" class="box-control" id="upw2" name="upwd2" placeholder="确认密码" autocomplete="off"/>
-                  <label>*管理员权限</label>
-                  <select id="auth" name="uauth" class="box-control">
-                      <option value="0" selected>超级管理员</option>
-                      <option value="1" >普通管理员</option>
-                  </select>    
-                  
-                  <label>*备注信息</label>
-                 <input type='text' name='smg' class="box-control"/></br>
-				  <label>*验 证 码</label>
-				  <input type='text' name='code' class="box-control"/>
-				  <img src="__APP__/Public/code" onclick='this.src=this.src+"?"+Math.random' /></br>
-                  <input type="submit" id="btn" value="添加" class="add"/>
-              </form>
-         </div>
-         
- </div>
+<div id="main">
+	<div class="page-title">添加管理员</div>
+	<div class="catalog">
+		<a href="">首页</a>&nbsp;>&nbsp;<a href="">添加管理员</a>
+	</div>
+
+	<div class="parts">
+		<div class="manger-add">
+			<h>添加新管理员</h>
+			<form action="__APP__/Manger/add2" method="post" name='myform'>
+				<label for="name">*昵 称</label>
+				<input type="text" name="uname" id="nickname" class="box-control" placeholder="填写管理员昵称" autocomplete="off"/>
+				<label for="password">*初始密码</label>
+				<input type="password" class="box-control" id="upw" name="upwd" placeholder="填写密码" autocomplete="off"/>
+				<label for="password">*确认密码</label>
+				<input type="password" class="box-control" id="upw2" name="upwd2" placeholder="确认密码" autocomplete="off"/>
+				<label>*管理员权限</label>
+				<select id="auth" name="uauth" class="box-control">
+					<option value="0" selected>超级管理员</option>
+					<volist name="list" id="vo">
+						<option value="{$vo['mid']}">{$vo['mname']}</option>
+					</volist>
+				</select>    
+
+				<label>备注信息</label>
+				<input type='text' name='smg' class="box-control"/></br>
+				<label>*验 证 码</label>
+				<input type='text' name='code' class="box-control"/>
+				<img src="__APP__/Public/code" style="position:relative;top:11px;left:0px;" onclick='this.src=this.src+"?"+Math.random' /></br>
+				<input type="submit" id="btn" value="添加" class="add"/>
+			</form>
+		</div>
+	</div>
+</div>
+ <script>
+$(function(){
+	var error = new Array();
+	$('input[name="uname"]').blur(function(){
+		var name=$(this).val();
+		$.get('__URL__/check_name',{'name':name},function(data){
+			if(data==1){
+				error['name']=1;
+				$('#message').remove();
+				$('input[name="uname"]').after("<p id='message' style='color:green;margin-left:30px;margin-top:10px;'>此用户名可用</p>");
+			}else{
+				error['name']=2;
+				$('#message').remove();
+			    $('input[name="uname"]').after("<p id='message' style='color:red;margin-left:30px;margin-top:10px;'>此用户名已存在</p>");
+			}
+		});
+	});
+
+	myform.onsubmit = function(){
+		return Checkpost();
+	};
+
+	function Checkpost(){  
+		if(error['name'] == 2){
+			alert('用户名已被占用');
+			myform.uname.focus();
+			return false;
+		}
+		if(myform.uname.value=="")
+	    { 
+	   	 alert("请填写您的昵称");
+	     myform.uname.focus();
+	     return false;
+	    }
+		if(myform.upwd.value.length<6)
+		{
+			alert("密码长度不得小于六");
+			myform.upwd.focus();
+			return false;
+		}
+		if(myform.upwd2.value.length<6)
+		{
+			alert("确认密码长度不得小于六");
+			myform.upwd2.focus();
+			return false;
+		}
+		if(myform.code.value==''){
+			alert('请填写验证码');
+			myform.code.focus();
+			return false;
+		}
+		if(myform.upwd.value!=myform.upwd2.value)
+		{
+			alert("确认密码不正确！");
+			myform.upwd2.focus();
+			return false;
+		}
+	}
+});
+
+</script>
+</body>
+</html>

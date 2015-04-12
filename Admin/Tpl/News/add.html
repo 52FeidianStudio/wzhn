@@ -44,9 +44,9 @@
                <label for="belong">新闻所属模块</label>
                <select  class="box-control" name="module">
                    <!-- <option value="0" selected>请选择资讯所属模块</option> -->
-                   <volist name="result" id="vo">
-                            <option value="{$vo['mid']}" <if condition="$datas[0]['mid'] eq $vo['mid']">selected </if> >{$vo['mname']}</option>
-                   </volist>
+                  
+                            <option value="{$result['0']['mid']}">{$result['0']['mname']}</option>
+                 
                </select>
               </br>
                <input type="submit" id="btn" value="确认修改" name="edit"/>
@@ -58,10 +58,9 @@
                     <input type="text" name="author" id="author" class="box-control" placeholder="填写文章作者/来源" autocomplete="off"/>
                <label for="belong">新闻所属模块</label>
                <select  class="box-control" name="module">
-                   <option value="0" selected>请选择资讯所属模块</option>
-                   <volist name="result" id="vo">
-                            <option value="{$vo['mid']}">{$vo['mname']}</option>
-                   </volist>
+                
+                            <option value="{$result['0']['mid']}">{$result['0']['mname']}</option>
+              
                </select>
               </br>
                <input type="submit" id="btn" value="发表"/>

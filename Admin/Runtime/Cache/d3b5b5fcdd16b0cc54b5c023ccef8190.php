@@ -21,7 +21,7 @@
           </div>
           <div class="header-right">
              <a  href="/wzhn/index.php"><img src="__PUBLIC__/images/static/home.png"><font class="go-home">首页</font></a>
-             <a href="__URL__/logOut"><img src="__PUBLIC__/images/static/LoginOut.png"><font class="go-out">退出</font></a>
+             <a href="__APP__/Index/logOut"><img src="__PUBLIC__/images/static/LoginOut.png"><font class="go-out">退出</font></a>
           </div>
       </div>
       
@@ -31,7 +31,7 @@
   <div id="sidebar">
             <div class="person">
           <div class="person-img"><img src="__PUBLIC__/images/static/person.png"/></div>
-          <p class="welcome">某某你好</p>
+          <p class="welcome"><?php echo ($name); ?>你好</p>
        </div>
 	   <div id="left">
 		  <ul class="accordion">
@@ -63,7 +63,7 @@
   
   <div id="main">
       <div class="page-title">
-            	资讯列表&nbsp;&nbsp;
+            	资讯列表
       </div>
          
          <div class="catalog">
@@ -89,15 +89,13 @@
                     
                     <input type="text" name="key" class="select-control" style="width:230px;"/>
                     <input type="submit" id="sea-btn" value="搜索" name="submit"/>
-                    
-                    &nbsp;&nbsp;<span>选择模块</span>&nbsp;&nbsp;: 
+                     <?php if($abc == 0): ?>&nbsp;&nbsp;<span>选择模块</span>&nbsp;&nbsp;: 
                     <select id="option" name="module" class="select-control" style="margin-top:-12px">
-                       <option value="0" selected>请选择模块</option>
+                      <option value="0" selected>请选择模块</option>
 					   <?php if(is_array($result)): $i = 0; $__LIST__ = $result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo['mid']); ?>"><?php echo ($vo['mname']); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
                     </select>
-                    </br>  </br>
-                     &nbsp;&nbsp;<span>对当前结果</span>&nbsp;&nbsp;: 
-                     <font><a href="">按发布时间排序</a></font>  &nbsp;&nbsp;<font><a href="">按阅读量排序</a></font>&nbsp;&nbsp;<font><a href="">按最近修改排序</a></font>
+                    </br>
+                    </br><?php endif; ?>   
              
              </form>
          </div>
@@ -118,7 +116,7 @@
                     
                     </tr>
                 <tbody id="tb">
-				<?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i; if($vo["mid"] == $abc OR $abc == 0): ?><!--易   添加-->
+				<?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i; if($vo["uid"] == $uid OR $abc == 0): ?><!--易   添加-->
 				<tr>
 					<th><?php echo ($vo["nid"]); ?></th><th><?php echo ($vo["ntitle"]); ?></th><th><?php echo ($vo["nfrom"]); ?></th><th><?php $content=strip_tags($vo['ncontent']); echo (string::msubstr($content,0,15)); ?></th><th>
 					   <?php if(is_array($result)): $i = 0; $__LIST__ = $result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vq): $mod = ($i % 2 );++$i; if($vo["mid"] == $vq['mid']): echo ($vq['mname']); else: endif; ?>

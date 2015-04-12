@@ -57,7 +57,7 @@
                       <select class="box-control" name="muser">
 	
                          <option value="0" <if condition="$datas[0]['mbuildby'] eq 0">selected</if> >root管理员</option>
-                         <option value="1" <if condition="$datas[0]['mbuildby'] eq 1">selected</if> >普通管理员</option>
+                        
                       </select>
 					  <input type="submit" id="btn" value="确认修改" name="edit"/>
 					  <input type="button" id="btn" onclick="history.go(-1);" value="放弃修改">
@@ -72,7 +72,7 @@
                       <label for="manger">*模块管理员</label>
                       <select class="box-control" name="muser">
                          <option value="0" selected>root管理员</option>
-                         <option value="1">普通管理员</option>
+                        
                       </select>
                       <input type="submit" id="btn" value="添加"/>
 					  <input type="reset" id="btn" value="重置"/>

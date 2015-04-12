@@ -6,7 +6,7 @@
   body{
   	margin:0 auto;
   	height:0 auto;
-	width:100%;
+	  width:100%;
   	background-color:#f5f5f5;
   	font:16px/24px "Microsoft Yahei", Tahoma, Helvetica, Arial, Verdana, "\5b8b\4f53", sans-serif;
   }
@@ -20,24 +20,19 @@
     border-bottom: 1px solid #eee;
     box-shadow: 0 0 2px rgba(0,0,0,.3);
   }
+  #header div{
+      width:980px;
+      margin:0 auto;
+  }
+  .logo img{
+    height: 80px;
+    float: left;
+  }
   
-  .logo{
-	float:left;
-  	margin-left:20px;
-  	position:relative;
-  	top:0px;
-  	left:200px;
-  }
-  #form{
-	position:relative;
-  	top:0px;
-  	left:-65px;
-  }
-  .search{
+  .search #form{
 	 height:80px;
-  	 width:600px;
-     margin-right:76px;
-  	 float:right;
+   float:right;
+   margin-right: -6px;
   }
   
   #search_box{
@@ -194,7 +189,7 @@
  .parts-right img{
 	width:87px;
  	height:160px;
- 	
+	
  } 
  
  .link{

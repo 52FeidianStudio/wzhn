@@ -5,15 +5,19 @@ class IndexAction extends Action {
 
         $m=M('Module');
        $news=D('News');
-      $count=$news->count();
+       $count=$news->count();
        $arr=$m->field('mid,mname')->select();
        import('ORG.Util.Page');// 导入分页类
 	   $page=new Page($count,9);// 实例化分页类 传入总记录数和每页显示的记录数
 		 //分页跳转的时候保证查询条件
 		$show=$page->show();
 		$result=$news->relation(true)->limit($page->firstRow.','.$page->listRows)->select();
-// 		dump($result);
-// 		exit;
+        foreach($result as &$val){
+            if('' == $val['nimage']){
+                $val['nimage'] = "__PUBLIC__/images/static/logo4.png";
+            }
+        }
+
       $this->assign("arr",$arr);
       $this->assign("list",$result);
       $this->assign("show",$show);
@@ -48,6 +52,7 @@ class IndexAction extends Action {
             $arr=$m->field('mid,mname')->select();
             $types=$News->where("mid=$mid")->relation(true)->limit($page->firstRow.','.$page->listRows)->select();
            // dump($types);
+
             $this->assign("show",$show);
             $this->assign("arr",$arr);
             $this->assign("list",$types);
@@ -59,7 +64,7 @@ class IndexAction extends Action {
     public function search()
     {
         $key = $_GET['key'];
-        $m=M('Module');
+        $m = M('Module');
         $news = D('News');
        
         $condition['ntitle'] = array('like',"%$key%");

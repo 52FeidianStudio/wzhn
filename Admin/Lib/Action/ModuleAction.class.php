@@ -1,6 +1,8 @@
 <?php
-class ModuleAction extends Action {
+class ModuleAction extends PublicAction {
     public function index(){
+    	$this->check_limit(0);   
+		$this->check_time();
 	    $m=new Model("module");
 		import('ORG.Util.Page');// 导入分页类
 		$count=$m->count();
@@ -15,6 +17,8 @@ class ModuleAction extends Action {
 	//新增模块
     public function add()
     {
+    	$this->check_limit(0);   
+		$this->check_time();
 	    $m=M("module");
 		//判断是编辑还是增加资讯
 		
@@ -49,6 +53,8 @@ class ModuleAction extends Action {
 	//删除模块
 	public function ndelete()
 	{
+		$this->check_limit(0);   
+		$this->check_time();
 	   $m=M("module");
 	   $mm=M("news");
 	   $id=$_GET['id'];
@@ -66,6 +72,8 @@ class ModuleAction extends Action {
 	//编辑模块
 	public function edit()
 	{
+		$this->check_limit(0);   
+		$this->check_time();
 	  $m=M("module");
 	  $id=$_GET['id'];
 	  $action="edit";//用于与add页面公用，判断是编辑资讯

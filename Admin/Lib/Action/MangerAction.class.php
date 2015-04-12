@@ -1,22 +1,27 @@
 <?php
 class MangerAction extends PublicAction {
     public function index(){
+
 		$this->check_limit(0);   
 		$this->check_time();
 		import('ORG.Util.Page');
-		$m= M('User'); 
+		$m= D('User'); 
+        
 		$count=$m->count();
 		$page=new Page($count,5);
 		$show=$page->show();
-		$arr=$m->limit($page->firstRow.','.$page->listRows)->select();
+		$arr=$m->relation(true)->limit($page->firstRow.','.$page->listRows)->select();
 		$this->assign('arr',$arr);
 		$this->assign('show',$show);
 	    $this->display();
     }
     public function add()
     {
-		$this->check_limit(1);
+		$this->check_limit(0);
 		$this->check_time();
+		$module = M('Module');
+        $list = $module->field('mid,mname')->select();
+        $this->assign('list',$list);
         $this->display();
     }
 	public function add2(){
@@ -26,7 +31,7 @@ class MangerAction extends PublicAction {
 		}else{
 			$m->uname=$_POST['uname']; 
 			$m->upwd=md5($_POST['upwd']);
-			$m->uauth=$_POST['uauth'];
+			$m->mid=$_POST['uauth'];
 			$m->ubuildby=$_SESSION['uname'];
 			$m->umsg= $_POST['smg'];
 			$m->ubuild=date('Y-m-d H:i:s');
@@ -90,6 +95,8 @@ class MangerAction extends PublicAction {
 	}	
 	//修改密码
 	public function change(){
+	// 	dump($_POST);
+	// 		exit;
 		if(md5($_POST['code'])==$_SESSION['verify']){
 				$m=D('User');
 				$where['uid']=$_SESSION['uid']; 

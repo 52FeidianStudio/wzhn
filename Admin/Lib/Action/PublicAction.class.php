@@ -15,7 +15,7 @@ class PublicAction extends Action{
 			$where['uid']=$_SESSION['uid'];
 			$sql=$m->where($where)->find();
 			if($_SESSION['upwd']==$sql['upwd']){
-				if($sql['uauth']==0||$limit==1){
+				if($sql['mid']==0||$limit==1){
 				}else{
 					$this->error('权限不足',__APP__.'/Index/index',1);//要更改跳转页*********
 				}
