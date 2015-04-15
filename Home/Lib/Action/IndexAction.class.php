@@ -51,6 +51,12 @@ class IndexAction extends Action {
             $show=$page->show();
             $arr=$m->field('mid,mname')->select();
             $types=$News->where("mid=$mid")->relation(true)->limit($page->firstRow.','.$page->listRows)->select();
+            foreach($types as &$val){
+                if('' == $val['nimage']){
+                    $val['nimage'] = "__PUBLIC__/images/static/logo4.png";
+                }
+            }
+            
            // dump($types);
 
             $this->assign("show",$show);
@@ -77,6 +83,11 @@ class IndexAction extends Action {
         $show=$page->show();
         $arr=$m->field('mid,mname')->select();
         $list=$news->where($condition)->relation(true)->limit($page->firstRow.','.$page->listRows)->order('nid desc')->select();
+        foreach($list as &$val){
+            if('' == $val['nimage']){
+                $val['nimage'] = "__PUBLIC__/images/static/logo4.png";
+            }
+        }
 //         dump($list);
 //         exit;
         $this->assign("show",$show);
