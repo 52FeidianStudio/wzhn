@@ -5,13 +5,13 @@ class IndexAction extends Action {
 
         $m=M('Module');
        $news=D('News');
-       $count=$news->count();
+       $count=$news->where("nstate='1'")->count();
        $arr=$m->field('mid,mname')->select();
        import('ORG.Util.Page');// 导入分页类
 	   $page=new Page($count,9);// 实例化分页类 传入总记录数和每页显示的记录数
 		 //分页跳转的时候保证查询条件
 		$show=$page->show();
-		$result=$news->relation(true)->limit($page->firstRow.','.$page->listRows)->select();
+		$result=$news->relation(true)->limit($page->firstRow.','.$page->listRows)->where("nstate='1'")->select();
         foreach($result as &$val){
             if('' == $val['nimage']){
                 $val['nimage'] = "__PUBLIC__/images/static/logo4.png";
@@ -44,13 +44,13 @@ class IndexAction extends Action {
             $m=M('Module');
             $mid=$_GET['t'];
             $News=D('News');
-            $count=$News->where("mid=$mid")->count();
+            $count=$News->where("mid=$mid and nstate='1'")->count();
             import('ORG.Util.Page');// 导入分页类
             $page=new Page($count,9);// 实例化分页类 传入总记录数和每页显示的记录数
             //分页跳转的时候保证查询条件
             $show=$page->show();
             $arr=$m->field('mid,mname')->select();
-            $types=$News->where("mid=$mid")->relation(true)->limit($page->firstRow.','.$page->listRows)->select();
+            $types=$News->where("mid=$mid and nstate='1'")->relation(true)->limit($page->firstRow.','.$page->listRows)->select();
             foreach($types as &$val){
                 if('' == $val['nimage']){
                     $val['nimage'] = "__PUBLIC__/images/static/logo4.png";
@@ -76,13 +76,15 @@ class IndexAction extends Action {
         $condition['ntitle'] = array('like',"%$key%");
         $condition['ncontent'] = array('like',"%$key%");
         $condition['_logic'] = 'or';
-        $count=$news->where($condition)->count();
+		$map['_complex'] = $condition;
+		$map['nstate']  = '1';
+        $count=$news->where($map)->count();
         import('ORG.Util.Page');// 导入分页类
         $page=new Page($count,9);// 实例化分页类 传入总记录数和每页显示的记录数
         //分页跳转的时候保证查询条件
         $show=$page->show();
         $arr=$m->field('mid,mname')->select();
-        $list=$news->where($condition)->relation(true)->limit($page->firstRow.','.$page->listRows)->order('nid desc')->select();
+        $list=$news->where($map)->relation(true)->limit($page->firstRow.','.$page->listRows)->order('nid desc')->select();
         foreach($list as &$val){
             if('' == $val['nimage']){
                 $val['nimage'] = "__PUBLIC__/images/static/logo4.png";

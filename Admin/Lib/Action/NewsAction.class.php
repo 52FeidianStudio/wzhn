@@ -141,14 +141,26 @@ class NewsAction extends PublicAction {
 	public function ndelete()
 	{
 	   $m=M("news");
+	   $data['nid']=$_GET['id'];
 	   $id=$_GET['id'];
-	   $n=$m->where("nid=$id")->delete();
+	   $arr=$m->where("nid=$id")->field('nstate')->select();
+	   //dump($arr[0]);
+	   //dump($arr);
+	   //exit();
+	   if($arr[0]['nstate'] == '1')
+	   {
+	      $data['nstate']='0';
+	   }
+	   else{
+	      $data['nstate']='1'; 
+	   }
+	   $n=$m->save($data);
 	   if($n>0)
 		 {
-		  $this->success("新闻删除成功!","__URL__/index");
+		  $this->redirect("News/index");  
 		 }
 	   else{
-		  $this->error("新闻删除失败!","__URL__/index");
+		  $this->error("操作失败!","__URL__/index");
 	   }
 	}
 	//编辑消息

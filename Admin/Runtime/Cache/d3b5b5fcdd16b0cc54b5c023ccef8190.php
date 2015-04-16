@@ -120,7 +120,7 @@
 				<tr>
 					<th><?php echo ($vo["nid"]); ?></th><th><?php echo ($vo["ntitle"]); ?></th><th><?php echo ($vo["nfrom"]); ?></th><th><?php $content=strip_tags($vo['ncontent']); echo (string::msubstr($content,0,15)); ?></th><th>
 					   <?php if(is_array($result)): $i = 0; $__LIST__ = $result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vq): $mod = ($i % 2 );++$i; if($vo["mid"] == $vq['mid']): echo ($vq['mname']); else: endif; ?>
-                       <!-- <option value="{vo['mid']}"><?php echo ($vo['mname']); ?></option> --><?php endforeach; endif; else: echo "" ;endif; ?></th><th><img src="<?php echo ($vo["nimage"]); ?>" style="width:50px;"></th><th><?php echo ($vo["nupdate"]); ?></th><th><?php echo ($vo["ntime"]); ?></th><th><a href="__APP__/News/edit/id/<?php echo ($vo["nid"]); ?>">修改</a> | <a href="__APP__/News/ndelete/id/<?php echo ($vo["nid"]); ?>" onclick="return confirm('确定要删除这条信息吗?');">删除</a></th>
+                       <!-- <option value="{vo['mid']}"><?php echo ($vo['mname']); ?></option> --><?php endforeach; endif; else: echo "" ;endif; ?></th><th><img src="<?php echo ($vo["nimage"]); ?>" style="width:50px;"></th><th><?php echo ($vo["nupdate"]); ?></th><th><?php echo ($vo["ntime"]); ?></th><th><a href="__APP__/News/edit/id/<?php echo ($vo["nid"]); ?>">修改</a> | <a href="__APP__/News/ndelete/id/<?php echo ($vo["nid"]); ?>"><?php if($vo["nstate"] == '1'): ?>设为隐藏<?php else: ?>设为显示<?php endif; ?></a></th>
 				</tr><?php endif; endforeach; endif; else: echo "" ;endif; ?>
 				</tbody>
                 </table>
